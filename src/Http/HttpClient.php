@@ -12,6 +12,7 @@ use XuTL\QCloud\Tim\Config;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\TransferException;
+use XuTL\QCloud\Tim\Exception\TIMException;
 use XuTL\QCloud\Tim\Signature;
 
 /**
@@ -96,6 +97,7 @@ class HttpClient
      * @param BaseResponse $response
      * @param AsyncCallback|NULL $callback
      * @return Promise
+     * @throws TIMException
      */
     public function sendRequestAsync(BaseRequest $request, BaseResponse &$response, AsyncCallback $callback = null)
     {
@@ -108,6 +110,7 @@ class HttpClient
      * @param BaseRequest $request
      * @param BaseResponse $response
      * @return BaseResponse
+     * @throws TIMException
      */
     public function sendRequest(BaseRequest $request, BaseResponse &$response)
     {
@@ -121,6 +124,7 @@ class HttpClient
      * @param BaseResponse $response
      * @param AsyncCallback|null $callback
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws TIMException
      */
     private function sendRequestAsyncInternal(BaseRequest &$request, BaseResponse &$response, AsyncCallback $callback = null)
     {
@@ -143,7 +147,7 @@ class HttpClient
                         try {
                             $response->unwrapResponse($res);
                             $callback->onSucceed($response);
-                        } catch (CMQException $e) {
+                        } catch (TIMException $e) {
                             $callback->onFailed($e);
                         }
                     }
@@ -156,7 +160,7 @@ class HttpClient
             if ($e->hasResponse()) {
                 $message = $e->getResponse()->getBody();
             }
-            throw new CMQException($message, $e->getCode());
+            throw new TIMException($message, $e->getCode());
         }
     }
 }

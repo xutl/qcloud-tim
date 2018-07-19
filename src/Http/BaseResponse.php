@@ -8,6 +8,8 @@
 namespace XuTL\QCloud\Tim\Http;
 
 use Psr\Http\Message\ResponseInterface;
+use XuTL\QCloud\Tim\Exception\ServerErrorHttpException;
+use XuTL\QCloud\Tim\Exception\ServerNetworkException;
 
 /**
  * Class BaseResponse
@@ -15,6 +17,16 @@ use Psr\Http\Message\ResponseInterface;
  */
 class BaseResponse
 {
+    /**
+     * @var boolean
+     */
+    protected $succeed;
+
+    /**
+     * @var array
+     */
+    protected $_content = [];
+
     /**
      * 解析响应
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -25,7 +37,7 @@ class BaseResponse
             throw new ServerNetworkException($response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents());
         }
         $content = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-        if ($content['code'] == 0) {
+        if (isset($content['ActionStatus']) && $content['ActionStatus'] == 'OK') {
             $this->succeed = true;
             foreach ($content as $name => $value) {
                 if (property_exists($this, $name)) {
@@ -35,7 +47,10 @@ class BaseResponse
                 }
             }
         } else {
-            $this->unwrapErrorResponse($content);
+            $this->succeed = false;
+            if (isset($content['ActionStatus']) && $content['ActionStatus'] == 'FAIL') {
+                throw new ServerErrorHttpException($content['ErrorInfo'], $content['ErrorCode']);
+            }
         }
     }
 }

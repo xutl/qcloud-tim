@@ -7,6 +7,9 @@
 
 namespace XuTL\QCloud\Tim;
 
+use XuTL\QCloud\Tim\Exception\TIMException;
+use XuTL\QCloud\Tim\Http\BaseResponse;
+
 /**
  * Class AsyncCallback
  * @package XuTL\QCloud\Tim

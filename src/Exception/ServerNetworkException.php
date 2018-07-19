@@ -10,5 +10,28 @@ namespace XuTL\QCloud\Tim\Exception;
 
 class ServerNetworkException extends \RuntimeException
 {
+    public $status;
+    public $header;
+    public $data;
 
+    public function __construct($status = 200, $header = null, $data = "")
+    {
+        if ($header == null) {
+            $header = [];
+        }
+        $this->status = $status;
+        $this->header = $header;
+        $this->data = $data;
+    }
+
+    public function __toString()
+    {
+        $info = [
+            'status' => $this->status,
+            'header' => json_encode($this->header),
+            'data' => $this->data
+        ];
+
+        return "ServerNetworkException  " . json_encode($info);
+    }
 }
