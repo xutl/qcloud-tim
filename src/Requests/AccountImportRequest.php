@@ -17,10 +17,18 @@ class AccountImportRequest extends BaseRequest
 {
     /**
      * AccountImportRequest constructor.
+     * @param string $identifier
+     * @param string $nickname
+     * @param string $faceUrl
+     * @param int $type
      */
-    public function __construct()
+    public function __construct($identifier, $nickname, $faceUrl, $type = 0)
     {
         parent::__construct('POST', 'v4/im_open_login_svc/account_import');
+        $this->setIdentifier($identifier);
+        $this->setNick($nickname);
+        $this->setFaceUrl($faceUrl);
+        $this->setType($type);
     }
 
     /**

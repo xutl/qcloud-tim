@@ -72,25 +72,45 @@ class Tim
     }
 
     /**
-     * 导入账户
-     * @param AccountImportRequest $request
+     * 托管模式存量账号导入
+     * @param string $identifier 用户名，长度不超过 32 字节
+     * @param int $identifierType Identifier的类型，1:手机号(国家码-手机号) 2:邮箱 3:字符串帐号
+     * @param string $passport Identifier的密码，长度为8-16个字符。
      * @return BaseResponse
      * @throws Exception\TIMException
      */
-    public function accountImport(AccountImportRequest $request)
+    public function accountRegister($identifier, $identifierType, $passport)
     {
+        $request = new AccountRegisterRequest($identifier, $identifierType, $passport);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 导入账户
+     * @param string $identifier
+     * @param string $nickname
+     * @param string $faceUrl
+     * @param int $type
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function accountImport($identifier, $nickname, $faceUrl, $type = 0)
+    {
+        $request = new AccountImportRequest($identifier, $nickname, $faceUrl, $type);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
 
     /**
      * 批量导入账户
-     * @param MultiAccountImportRequest $request
+     * @param array $accounts
      * @return BaseResponse
      * @throws Exception\TIMException
      */
-    public function multiAccountImport(MultiAccountImportRequest $request)
+    public function multiAccountImport($accounts)
     {
+        $request = new MultiAccountImportRequest($accounts);
         $response = new MultiAccountImportResponse();
         return $this->client->sendRequest($request, $response);
     }
@@ -108,18 +128,9 @@ class Tim
         return $this->client->sendRequest($request, $response);
     }
 
-    /**
-     * 托管模式存量账号导入
-     * @param string $identifier 用户名，长度不超过 32 字节
-     * @param int $identifierType Identifier的类型，1:手机号(国家码-手机号) 2:邮箱 3:字符串帐号
-     * @param string $passport Identifier的密码，长度为8-16个字符。
-     * @return BaseResponse
-     * @throws Exception\TIMException
-     */
-    public function accountRegister($identifier, $identifierType, $passport)
+
+    public function accountState($identifier)
     {
-        $request = new AccountRegisterRequest($identifier, $identifierType, $passport);
-        $response = new BaseResponse();
-        return $this->client->sendRequest($request, $response);
+
     }
 }

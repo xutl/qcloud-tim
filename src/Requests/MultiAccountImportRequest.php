@@ -17,10 +17,12 @@ class MultiAccountImportRequest extends BaseRequest
 {
     /**
      * AccountImportRequest constructor.
+     * @param array $accounts
      */
-    public function __construct()
+    public function __construct(array $accounts)
     {
         parent::__construct('POST', 'v4/im_open_login_svc/multiaccount_import');
+        $this->setAccounts($accounts);
     }
 
     /**
