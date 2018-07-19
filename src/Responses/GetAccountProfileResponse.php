@@ -26,6 +26,9 @@ class GetAccountProfileResponse extends BaseResponse
      */
     protected $ErrorDisplay;
 
+    /**
+     * @var AccountProfile
+     */
     protected $userProfileItem;
 
     /**
@@ -38,7 +41,7 @@ class GetAccountProfileResponse extends BaseResponse
     }
 
     /**
-     * @return array
+     * @return AccountProfile
      */
     public function getUserProfileItem()
     {

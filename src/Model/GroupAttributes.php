@@ -49,6 +49,15 @@ class GroupAttributes
     }
 
     /**
+     * 获取应用ID
+     * @return int|string
+     */
+    public function getAppid()
+    {
+        return $this->items['Appid'] ?? '';
+    }
+
+    /**
      * 设置群组ID
      * @param string $groupId
      */
@@ -64,6 +73,5 @@ class GroupAttributes
     public function getGroupId()
     {
         return $this->items['GroupId'] ?? '';
-
     }
 }
