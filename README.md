@@ -61,7 +61,7 @@ $group = $client->getGroup('test');
 //修改圈子属性
 $groupAttributes = new GroupAttributes();
 $groupAttributes->setName('方圆百里找对手');
-$groupAttributes->setApplyJoinOption(Constants::GROUP_APPLY_JOIN_OPTION_FreeAccess);
+$groupAttributes->setApplyJoinOption(Constants::GROUP_APPLY_JOIN_OPTION_FREE_ACCESS);
 try {
     $res = $group->setInfo($groupAttributes);
     print_r($res);
