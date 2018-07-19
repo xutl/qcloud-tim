@@ -74,6 +74,16 @@ class Tim
     }
 
     /**
+     * 获取账号操作实例
+     * @param string $identifier
+     * @return Account
+     */
+    public function getAccount($identifier)
+    {
+        return new Account($this->client, $identifier);
+    }
+
+    /**
      * 托管模式存量账号导入
      * @param string $identifier 用户名，长度不超过 32 字节
      * @param int $identifierType Identifier的类型，1:手机号(国家码-手机号) 2:邮箱 3:字符串帐号
@@ -118,29 +128,12 @@ class Tim
     }
 
     /**
-     * 帐号登录态失效接口
-     * @param string $identifier
-     * @return BaseResponse
-     * @throws Exception\TIMException
+     * 获取群组操作实例
+     * @param string $groupId
+     * @return Group
      */
-    public function accountLoginKick($identifier)
+    public function getGroup($groupId)
     {
-        $request = new AccountLoginKickRequest($identifier);
-        $response = new BaseResponse();
-        return $this->client->sendRequest($request, $response);
-    }
-
-    /**
-     * 查询账户在线状态
-     * @param array|string $accounts
-     * @return BaseResponse
-     * @throws Exception\TIMException
-     */
-    public function accountState($accounts)
-    {
-        $accounts = is_array($accounts) ? $accounts : [$accounts];
-        $request = new AccountStateRequest($accounts);
-        $response = new AccountStateResponse();
-        return $this->client->sendRequest($request, $response);
+        return new Group($this->client, $groupId);
     }
 }
