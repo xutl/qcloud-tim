@@ -13,6 +13,7 @@ use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Model\GroupAttributes;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
+use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
 use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
 use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
 
@@ -67,6 +68,22 @@ class Group
         $request = new SetGroupInfoRequest($this->groupId);
         $request->setParameters($attributes->getItems());
         $response = new GetGroupInfoResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 在群组中发送系统通知
+     * @param string $content
+     * @param array $members
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function sendSystemNotification($content, $members = [])
+    {
+        $request = new SendGroupSystemNotificationRequest($this->groupId);
+        $request->setContent($content);
+        $request->setToMembersAccount($members);
+        $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
 
