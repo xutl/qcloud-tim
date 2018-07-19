@@ -26,20 +26,22 @@ class GetAccountProfileResponse extends BaseResponse
      */
     protected $ErrorDisplay;
 
+    protected $userProfileItem;
+
     /**
-     * @var array
+     * 用户资料
+     * @param array $UserProfileItem
      */
-    protected $UserProfileItem;
+    public function setUserProfileItem($UserProfileItem)
+    {
+        $this->userProfileItem = new AccountProfile($UserProfileItem[0]['ProfileItem']);
+    }
 
     /**
      * @return array
      */
     public function getUserProfileItem()
     {
-        $items = [];
-        foreach ($this->UserProfileItem as $item) {
-            $items[] = new AccountProfile($item['ProfileItem']);
-        }
-        return $items;
+        return $this->userProfileItem;
     }
 }

@@ -99,6 +99,22 @@ class Tim
     }
 
     /**
+     * 异步 托管模式存量账号导入
+     * @param string $identifier 用户名，长度不超过 32 字节
+     * @param int $identifierType Identifier的类型，1:手机号(国家码-手机号) 2:邮箱 3:字符串帐号
+     * @param string $passport Identifier的密码，长度为8-16个字符。
+     * @param AsyncCallback|null $callback 回调
+     * @return Http\Promise
+     * @throws Exception\TIMException
+     */
+    public function accountRegisterAsync($identifier, $identifierType, $passport, AsyncCallback $callback = null)
+    {
+        $request = new AccountRegisterRequest($identifier, $identifierType, $passport);
+        $response = new BaseResponse();
+        return $this->client->sendRequestAsync($request, $response, $callback);
+    }
+
+    /**
      * 导入账户
      * @param string $identifier
      * @param string $nickname
@@ -112,6 +128,23 @@ class Tim
         $request = new AccountImportRequest($identifier, $nickname, $faceUrl, $type);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 异步导入账户
+     * @param string $identifier
+     * @param string $nickname
+     * @param string $faceUrl
+     * @param int $type
+     * @param AsyncCallback|null $callback
+     * @return Http\Promise
+     * @throws Exception\TIMException
+     */
+    public function accountImportAsync($identifier, $nickname, $faceUrl, $type = 0, AsyncCallback $callback = null)
+    {
+        $request = new AccountImportRequest($identifier, $nickname, $faceUrl, $type);
+        $response = new BaseResponse();
+        return $this->client->sendRequestAsync($request, $response, $callback);
     }
 
     /**

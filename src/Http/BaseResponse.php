@@ -84,7 +84,10 @@ class BaseResponse
         if (isset($content['ActionStatus']) && $content['ActionStatus'] == 'OK') {
             $this->succeed = true;
             foreach ($content as $name => $value) {
-                if (property_exists($this, $name)) {
+                $setter = 'set' . $name;
+                if (method_exists($this, $setter)) {
+                    $this->$setter($value);
+                } else if (property_exists($this, $name)) {
                     $this->{$name} = $value;
                 } else {
                     $this->_content[$name] = $value;
