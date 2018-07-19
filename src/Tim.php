@@ -11,6 +11,7 @@ use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
+use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
@@ -60,6 +61,17 @@ class Tim
     }
 
     /**
+     * 获取账户登录签名
+     * @param string $identifier
+     * @param int $expire
+     * @return string
+     */
+    public function getLoginSignature($identifier, $expire = 86400)
+    {
+        return $this->signature->make($identifier, $expire);
+    }
+
+    /**
      * 导入账户
      * @param AccountImportRequest $request
      * @return BaseResponse
@@ -92,6 +104,21 @@ class Tim
     public function accountLoginKick($identifier)
     {
         $request = new AccountLoginKickRequest($identifier);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 托管模式存量账号导入
+     * @param string $identifier 用户名，长度不超过 32 字节
+     * @param int $identifierType Identifier的类型，1:手机号(国家码-手机号) 2:邮箱 3:字符串帐号
+     * @param string $passport Identifier的密码，长度为8-16个字符。
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function accountRegister($identifier, $identifierType, $passport)
+    {
+        $request = new AccountRegisterRequest($identifier, $identifierType, $passport);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
