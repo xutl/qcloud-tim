@@ -8,7 +8,9 @@
 namespace XuTL\QCloud\Tim;
 
 
+use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
+use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 
 class Group
 {
@@ -33,4 +35,23 @@ class Group
         $this->client = $client;
         $this->groupId = $groupId;
     }
+
+    public function getInfo()
+    {
+
+    }
+
+    /**
+     * 解散群组
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function destroy()
+    {
+        $request = new DestroyGroupRequest($this->groupId);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+
 }
