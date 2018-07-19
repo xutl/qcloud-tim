@@ -10,8 +10,10 @@ namespace XuTL\QCloud\Tim;
 
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
+use XuTL\QCloud\Tim\Model\GroupAttributes;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
+use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
 use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
 
 /**
@@ -50,6 +52,20 @@ class Group
     public function getInfo()
     {
         $request = new GetGroupInfoRequest([$this->groupId]);
+        $response = new GetGroupInfoResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 设置群组资料
+     * @param GroupAttributes $attributes
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function setInfo(GroupAttributes $attributes)
+    {
+        $request = new SetGroupInfoRequest($this->groupId);
+        $request->setParameters($attributes->getItems());
         $response = new GetGroupInfoResponse();
         return $this->client->sendRequest($request, $response);
     }

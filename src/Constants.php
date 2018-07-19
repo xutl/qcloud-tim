@@ -30,4 +30,9 @@ class Constants
     const GROUP_TYPE_CHAT_ROOM = 'ChatRoom';
     const GROUP_TYPE_AV_CHAT_ROOM = 'AVChatRoom';
     const GROUP_TYPE_B_CHAT_ROOM = 'BChatRoom';
+
+    //加群处理方式
+    const GROUP_APPLY_JOIN_OPTION_FreeAccess = 'FreeAccess';
+    const GROUP_APPLY_JOIN_OPTION_NEED_PERMISSION = 'NeedPermission';
+    const GROUP_APPLY_JOIN_OPTION_DISABLE_APPLY = 'DisableApply';
 }

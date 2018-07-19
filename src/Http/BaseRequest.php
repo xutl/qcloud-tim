@@ -59,7 +59,7 @@ class BaseRequest
      */
     public function setParameters($params)
     {
-        $this->parameter = $params;
+        $this->parameter = array_merge_recursive($this->parameter,$params);
     }
 
     /**
