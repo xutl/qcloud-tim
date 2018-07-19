@@ -12,7 +12,9 @@ use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
+use XuTL\QCloud\Tim\Requests\AccountStateRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
+use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
 /**
@@ -128,9 +130,17 @@ class Tim
         return $this->client->sendRequest($request, $response);
     }
 
-
-    public function accountState($identifier)
+    /**
+     * 查询账户在线状态
+     * @param array|string $accounts
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function accountState($accounts)
     {
-
+        $accounts = is_array($accounts) ? $accounts : [$accounts];
+        $request = new AccountStateRequest($accounts);
+        $response = new AccountStateResponse();
+        return $this->client->sendRequest($request, $response);
     }
 }
