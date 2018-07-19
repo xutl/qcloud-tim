@@ -10,14 +10,10 @@ namespace XuTL\QCloud\Tim;
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
-use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
-use XuTL\QCloud\Tim\Requests\AccountStateRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
 use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
-use XuTL\QCloud\Tim\Responses\AccountStateResponse;
-use XuTL\QCloud\Tim\Responses\CreateGroupResponse;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
