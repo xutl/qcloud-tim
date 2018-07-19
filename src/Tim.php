@@ -27,18 +27,6 @@ class Tim
     private $signature;
 
     /**
-     * 私钥
-     * @var string
-     */
-    private $privateKey;
-
-    /**
-     * 公钥
-     * @var string
-     */
-    private $publicKey;
-
-    /**
      * @var string 账户类型
      */
     private $accountType;

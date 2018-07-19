@@ -7,9 +7,22 @@
 
 namespace XuTL\QCloud\Tim\Http;
 
-
+/**
+ * 请求基类
+ * @package XuTL\QCloud\Tim\Http
+ */
 class BaseRequest
 {
+    /**
+     * @var string
+     */
+    protected $method;
+
+    /**
+     * @var string
+     */
+    protected $requestUri;
+
     /**
      * Api参数
      * @var array
@@ -18,19 +31,25 @@ class BaseRequest
 
     /**
      * BaseRequest constructor.
-     * @param string $action
+     * @param string $method
+     * @param string $resourceUri
      */
-    public function __construct($action)
+    public function __construct($method, $resourceUri) {
+        $this->method = $method;
+        $this->requestUri = $resourceUri;
+    }
+
+    public function getMethod()
     {
-        $this->parameter['Action'] = ucfirst($action);
+        return $this->method;
     }
 
     /**
      * @return string
      */
-    public function getAction()
+    public function getRequestUri()
     {
-        return $this->parameter['Action'];
+        return $this->requestUri;
     }
 
     /**

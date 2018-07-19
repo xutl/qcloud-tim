@@ -44,6 +44,7 @@ class HttpClient
      * @var string 账户类型
      */
     private $accountType;
+
     /**
      * 签名实例
      * @var Signature
@@ -90,27 +91,6 @@ class HttpClient
     }
 
     /**
-     * 编译请求参数
-     * @param BaseRequest $request
-     * @return array
-     */
-    public function buildRequestBody(BaseRequest &$request)
-    {
-        $params = [
-            'identifier' => $this->administrator,
-            'sdkappid' => $this->appId,
-            'random' => uniqid(),
-            'contenttype' => 'json',
-            'usersig' => $this->im->signature->make($this->administrator)
-        ];
-        $url = $this->composeUrl($this->baseUri, $params);
-        $event->request->setUrl($url);
-
-        return $params;
-    }
-
-
-    /**
      * 发送异步请求
      * @param BaseRequest $request
      * @param BaseResponse $response
@@ -152,10 +132,10 @@ class HttpClient
             'contenttype' => 'json',
             'usersig' => $this->signature->make($this->administrator)
         ];
-        $options['form_params'] = $this->buildRequestBody($request);
+        $options['form_params'] = $request->getParameters();
         $options['timeout'] = $this->requestTimeout;
         $options['connect_timeout'] = $this->connectTimeout;
-        $request = new Request('POST', $this->requestPath);
+        $request = new Request($request->getMethod(), $request->getRequestUri());
         try {
             if ($callback != null) {
                 return $this->client->sendAsync($request, $options)->then(
