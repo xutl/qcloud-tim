@@ -11,6 +11,7 @@ namespace XuTL\QCloud\Tim;
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Model\GroupAttributes;
+use XuTL\QCloud\Tim\Requests\ChangeOwnerRequest;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
@@ -68,6 +69,19 @@ class Group
         $request = new SetGroupInfoRequest($this->groupId);
         $request->setParameters($attributes->getItems());
         $response = new GetGroupInfoResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 转让群组
+     * @param string $owner
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function changeOwner($owner)
+    {
+        $request = new ChangeOwnerRequest($this->groupId, $owner);
+        $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
 
