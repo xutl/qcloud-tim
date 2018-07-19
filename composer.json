@@ -1,11 +1,7 @@
 {
     "name": "xutl/qcloud-tim",
     "description": "Qcloud TIM php sdk",
-    "keywords": [
-        "qcloud",
-        "sdk",
-        "tim"
-    ],
+    "keywords": ["qcloud", "sdk", "tim"],
     "type": "library",
     "license": "MIT",
     "authors": [
