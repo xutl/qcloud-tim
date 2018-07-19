@@ -11,6 +11,7 @@ namespace XuTL\QCloud\Tim;
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
+use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
 
 class Group
 {
@@ -36,9 +37,16 @@ class Group
         $this->groupId = $groupId;
     }
 
+    /**
+     * 获取群组资料
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
     public function getInfo()
     {
-
+        $request = new GetGroupInfoRequest([$this->groupId]);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**
@@ -52,6 +60,5 @@ class Group
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
-
 
 }

@@ -13,8 +13,10 @@ use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
 use XuTL\QCloud\Tim\Requests\AccountStateRequest;
+use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Responses\AccountStateResponse;
+use XuTL\QCloud\Tim\Responses\CreateGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
 /**
@@ -161,6 +163,20 @@ class Tim
     }
 
     /**
+     * 异步批量导入账户
+     * @param array $accounts
+     * @param AsyncCallback|null $callback
+     * @return Http\Promise
+     * @throws Exception\TIMException
+     */
+    public function multiAccountImportAsync($accounts, AsyncCallback $callback = null)
+    {
+        $request = new MultiAccountImportRequest($accounts);
+        $response = new MultiAccountImportResponse();
+        return $this->client->sendRequestAsync($request, $response, $callback);
+    }
+
+    /**
      * 获取群组操作实例
      * @param string $groupId
      * @return Group
@@ -168,5 +184,61 @@ class Tim
     public function getGroup($groupId)
     {
         return new Group($this->client, $groupId);
+    }
+
+    /**
+     * 创建圈子
+     * @param CreateGroupRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function createGroup(CreateGroupRequest $request)
+    {
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 异步创建圈子
+     * @param CreateGroupRequest $request
+     * @param AsyncCallback|null $callback
+     * @return Http\Promise
+     * @throws Exception\TIMException
+     */
+    public function createGroupAsync(CreateGroupRequest $request, AsyncCallback $callback = null)
+    {
+        $response = new BaseResponse();
+        return $this->client->sendRequestAsync($request, $response, $callback);
+    }
+
+    /**
+     * 创建公开的群
+     * @param string $name
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function createGroupOfPublic($name)
+    {
+        $request = new CreateGroupRequest();
+        $request->setType('Public');
+        $request->setName($name);
+        $response = new CreateGroupResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+
+    /**
+     * @param $name
+     * @param $type
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function createGroupBasic($name, $type)
+    {
+        $request = new CreateGroupRequest();
+        $request->setType($type);
+        $request->setName($name);
+        $response = new CreateGroupResponse();
+        return $this->client->sendRequest($request, $response);
     }
 }

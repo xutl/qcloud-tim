@@ -98,4 +98,20 @@ class Account
         $response = new SetAccountProfileResponse();
         return $this->client->sendRequest($request, $response);
     }
+
+    /**
+     * 设置全局禁言
+     */
+    public function setNoSpeaking()
+    {
+
+    }
+
+    /**
+     * 获取全局禁言
+     */
+    public function getNoSpeaking()
+    {
+
+    }
 }

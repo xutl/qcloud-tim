@@ -34,7 +34,8 @@ class BaseRequest
      * @param string $method
      * @param string $resourceUri
      */
-    public function __construct($method, $resourceUri) {
+    public function __construct($method, $resourceUri)
+    {
         $this->method = $method;
         $this->requestUri = $resourceUri;
     }
@@ -50,6 +51,15 @@ class BaseRequest
     public function getRequestUri()
     {
         return $this->requestUri;
+    }
+
+    /**
+     * 批量设置请求参数
+     * @param array $params
+     */
+    public function setParameters($params)
+    {
+        $this->parameter = $params;
     }
 
     /**
