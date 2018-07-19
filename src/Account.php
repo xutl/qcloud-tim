@@ -48,27 +48,24 @@ class Account
 
     /**
      * 帐号登录态失效接口
-     * @param string $identifier
      * @return BaseResponse
      * @throws Exception\TIMException
      */
-    public function kick($identifier)
+    public function kick()
     {
-        $request = new AccountLoginKickRequest($identifier);
+        $request = new AccountLoginKickRequest($this->identifier);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
 
     /**
      * 查询账户在线状态
-     * @param array|string $accounts
      * @return BaseResponse
      * @throws Exception\TIMException
      */
-    public function state($accounts)
+    public function state()
     {
-        $accounts = is_array($accounts) ? $accounts : [$accounts];
-        $request = new AccountStateRequest($accounts);
+        $request = new AccountStateRequest([$this->identifier]);
         $response = new AccountStateResponse();
         return $this->client->sendRequest($request, $response);
     }
