@@ -1,0 +1,52 @@
+<?php
+/**
+ * @link http://www.tintsoft.com/
+ * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
+ * @license http://www.tintsoft.com/license/
+ */
+
+namespace XuTL\QCloud\Tim\Http;
+
+
+class BaseRequest
+{
+    /**
+     * Api参数
+     * @var array
+     */
+    private $parameter = [];
+
+    /**
+     * BaseRequest constructor.
+     * @param string $action
+     */
+    public function __construct($action)
+    {
+        $this->parameter['Action'] = ucfirst($action);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->parameter['Action'];
+    }
+
+    /**
+     * @param string $key
+     * @param string|array $value
+     */
+    public function setParameter($key, $value)
+    {
+        $this->parameter[$key] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return array_filter($this->parameter);
+    }
+}
