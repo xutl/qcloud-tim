@@ -8,6 +8,9 @@
 namespace XuTL\QCloud\Tim\Http;
 
 use XuTL\QCloud\Tim\Config;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Class HttpClient
@@ -21,22 +24,47 @@ class HttpClient
     private $client;
 
     /**
+     * @var float
+     */
+    private $requestTimeout;
+
+    /**
+     * @var float
+     */
+    private $connectTimeout;
+
+    /**
+     * @var int AppId
+     */
+    private $appId;
+
+    /**
+     * @var string 账户类型
+     */
+    private $accountType;
+
+    /**
+     * @var string
+     */
+    protected $baseUri = 'https://console.tim.qq.com/';
+
+
+    /**
      * HttpClient constructor.
-     * @param string $endPoint
+     * @param string $appId
      * @param string $secretId
      * @param string $secretKey
      * @param Config|null $config
      */
-    public function __construct($endPoint, $secretId, $secretKey, Config $config = null)
+    public function __construct($appId, $accountType, $secretKey, Config $config = null)
     {
         if ($config == null) {
             $config = new Config;
         }
-        $this->endPoint = $endPoint;
-        $this->secretId = $secretId;
-        $this->secretKey = $secretKey;
+        $this->appId = $appId;
+        $this->accountType = $accountType;
         $this->client = new \GuzzleHttp\Client([
-            'base_uri' => $endPoint,
+            'base_uri' => $this->baseUri,
             'defaults' => [
                 'proxy' => $config->getProxy(),
                 'expect' => $config->getExpectContinue()
