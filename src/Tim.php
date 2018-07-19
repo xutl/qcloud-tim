@@ -14,9 +14,11 @@ use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
 use XuTL\QCloud\Tim\Requests\AccountStateRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
+use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\CreateGroupResponse;
+use XuTL\QCloud\Tim\Responses\ListGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
 /**
@@ -212,33 +214,14 @@ class Tim
     }
 
     /**
-     * 创建公开的群
-     * @param string $name
+     * 获取群组列表
+     * @param ListGroupRequest $request
      * @return BaseResponse
      * @throws Exception\TIMException
      */
-    public function createGroupOfPublic($name)
+    public function listGroup(ListGroupRequest $request)
     {
-        $request = new CreateGroupRequest();
-        $request->setType('Public');
-        $request->setName($name);
-        $response = new CreateGroupResponse();
-        return $this->client->sendRequest($request, $response);
-    }
-
-
-    /**
-     * @param $name
-     * @param $type
-     * @return BaseResponse
-     * @throws Exception\TIMException
-     */
-    public function createGroupBasic($name, $type)
-    {
-        $request = new CreateGroupRequest();
-        $request->setType($type);
-        $request->setName($name);
-        $response = new CreateGroupResponse();
+        $response = new ListGroupResponse();
         return $this->client->sendRequest($request, $response);
     }
 }

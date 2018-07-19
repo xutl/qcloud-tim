@@ -6,6 +6,7 @@
  */
 
 namespace XuTL\QCloud\Tim\Model;
+use XuTL\QCloud\Tim\Constants;
 
 /**
  * 用户资料
@@ -18,18 +19,6 @@ class AccountProfile
      * @var array
      */
     protected $items = [];
-
-    const GENDER_TYPE_UNKNOWN = 'Gender_Type_Unknown';//没设置
-    const GENDER_TYPE_FEMALE = 'Gender_Type_Female';//女
-    const GENDER_TYPE_MALE = 'Gender_Type_Male';//男
-
-    const ADMIN_FORBID_TYPE_NONE = 'AdminForbid_Type_None';
-    const ADMIN_FORBID_TYPE_SENDOUT = 'AdminForbid_Type_SendOut';
-
-    //加好友验证方式
-    const ALLOW_TYPE_NEED_CONFIRM = 'AllowType_Type_NeedConfirm';
-    const ALLOW_TYPE_ALLOW_ANY = 'AllowType_Type_AllowAny';
-    const ALLOW_TYPE_DENY_ANY = 'AllowType_Type_DenyAny';
 
     /**
      * AccountProfile constructor.
@@ -94,7 +83,7 @@ class AccountProfile
      * @param string $gender
      * @return AccountProfile
      */
-    public function setGender($gender = self::GENDER_TYPE_UNKNOWN)
+    public function setGender($gender = Constants::GENDER_TYPE_UNKNOWN)
     {
         $this->items['Tag_Profile_IM_Gender'] = $gender;
         return $this;
@@ -251,7 +240,7 @@ class AccountProfile
      * @param string $adminForbidType
      * @return $this
      */
-    public function setAdminForbidType($adminForbidType = self::ADMIN_FORBID_TYPE_NONE)
+    public function setAdminForbidType($adminForbidType = Constants::ADMIN_FORBID_TYPE_NONE)
     {
         $this->items['Tag_Profile_IM_AdminForbidType'] = $adminForbidType;
         return $this;
