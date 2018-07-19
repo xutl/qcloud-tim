@@ -7,7 +7,12 @@
 
 namespace XuTL\QCloud\Tim;
 
+use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
+use XuTL\QCloud\Tim\Requests\AccountImportRequest;
+use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
+use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
+use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 
 /**
  * Class Tim
@@ -52,5 +57,42 @@ class Tim
         $this->client = new HttpClient($appId, $accountType, $this->signature, $administrator, $config);
         $this->accountType = $accountType;
         $this->administrator = $administrator;
+    }
+
+    /**
+     * 导入账户
+     * @param AccountImportRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function accountImport(AccountImportRequest $request)
+    {
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 批量导入账户
+     * @param MultiAccountImportRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function multiAccountImport(MultiAccountImportRequest $request)
+    {
+        $response = new MultiAccountImportResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 帐号登录态失效接口
+     * @param string $identifier
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function accountLoginKick($identifier)
+    {
+        $request = new AccountLoginKickRequest($identifier);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 }

@@ -23,9 +23,53 @@ class BaseResponse
     protected $succeed;
 
     /**
+     * @var string
+     */
+    protected $ActionStatus;
+
+    /**
+     * 错误码
+     * @var int
+     */
+    protected $ErrorCode;
+
+    /**
+     * 错误详情
+     * @var string
+     */
+    protected $ErrorInfo;
+
+    /**
      * @var array
      */
     protected $_content = [];
+
+    /**
+     * 获取操作状态
+     * @return string
+     */
+    public function getActionStatus()
+    {
+        return $this->ActionStatus;
+    }
+
+    /**
+     * 获取错误码
+     * @return int
+     */
+    public function getErrorCode()
+    {
+        return $this->ErrorCode;
+    }
+
+    /**
+     * 获取错误详情
+     * @return string
+     */
+    public function getErrorInfo()
+    {
+        return $this->ErrorInfo;
+    }
 
     /**
      * 解析响应
@@ -53,4 +97,6 @@ class BaseResponse
             }
         }
     }
+
+
 }

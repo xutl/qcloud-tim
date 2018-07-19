@@ -136,7 +136,7 @@ class HttpClient
             'contenttype' => 'json',
             'usersig' => $this->signature->make($this->administrator)
         ];
-        $options['form_params'] = $request->getParameters();
+        $options['json'] = $request->getParameters();
         $options['timeout'] = $this->requestTimeout;
         $options['connect_timeout'] = $this->connectTimeout;
         $request = new Request($request->getMethod(), $request->getRequestUri());
