@@ -17,6 +17,7 @@ use XuTL\QCloud\Tim\Requests\DeleteGroupMessageRequest;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\ForbidSendMessageRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
+use XuTL\QCloud\Tim\Requests\GetGroupMemberInfoRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupShuttedUinRequest;
 use XuTL\QCloud\Tim\Requests\GetUserRoleRequest;
 use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
@@ -24,6 +25,7 @@ use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\SetUnreadMessageNumRequest;
 use XuTL\QCloud\Tim\Responses\ForbidSendMessageResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
+use XuTL\QCloud\Tim\Responses\GetGroupMemberInfoResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupShuttedUinResponse;
 use XuTL\QCloud\Tim\Responses\GetUserRoleResponse;
 
@@ -64,6 +66,23 @@ class Group
     {
         $request = new GetGroupInfoRequest([$this->groupId]);
         $response = new GetGroupInfoResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 获取群组成员详细资料
+     * @param int $limit
+     * @param int $offset
+     * @param array $memberRoleFilter
+     * @param array $memberInfoFilter
+     * @param array $appDefinedDataFilter
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function getMemberInfo($limit = null, $offset = 0, $memberRoleFilter = null, $memberInfoFilter = null, $appDefinedDataFilter = null)
+    {
+        $request = new GetGroupMemberInfoRequest($this->groupId, $limit, $offset, $memberRoleFilter, $memberInfoFilter, $appDefinedDataFilter);
+        $response = new GetGroupMemberInfoResponse();
         return $this->client->sendRequest($request, $response);
     }
 
@@ -160,7 +179,6 @@ class Group
         return $this->client->sendRequest($request, $response);
     }
 
-
     /**
      * 在群组中发送系统通知
      * @param string $content
@@ -177,7 +195,6 @@ class Group
         return $this->client->sendRequest($request, $response);
     }
 
-
     /**
      * 删除群组成员
      * @param string|array $member
@@ -188,7 +205,7 @@ class Group
      */
     public function deleteMember($member, $reason = null, $silence = 0)
     {
-        $request = new DeleteGroupMemberRequest($this->groupId, $member, $reason, $silence = 0);
+        $request = new DeleteGroupMemberRequest($this->groupId, $member, $reason, $silence);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
@@ -204,5 +221,4 @@ class Group
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
-
 }
