@@ -11,6 +11,7 @@ namespace XuTL\QCloud\Tim;
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Model\GroupAttributes;
+use XuTL\QCloud\Tim\Requests\AddGroupMemberRequest;
 use XuTL\QCloud\Tim\Requests\ChangeOwnerRequest;
 use XuTL\QCloud\Tim\Requests\DeleteGroupMemberRequest;
 use XuTL\QCloud\Tim\Requests\DeleteGroupMessageRequest;
@@ -23,6 +24,7 @@ use XuTL\QCloud\Tim\Requests\GetUserRoleRequest;
 use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
 use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\SetUnreadMessageNumRequest;
+use XuTL\QCloud\Tim\Responses\AddGroupMemberInfoResponse;
 use XuTL\QCloud\Tim\Responses\ForbidSendMessageResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupMemberInfoResponse;
@@ -83,6 +85,20 @@ class Group
     {
         $request = new GetGroupMemberInfoRequest($this->groupId, $limit, $offset, $memberRoleFilter, $memberInfoFilter, $appDefinedDataFilter);
         $response = new GetGroupMemberInfoResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 增加群组成员
+     * @param array|string $member
+     * @param int $silence
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function addMember($member, $silence = 0)
+    {
+        $request = new AddGroupMemberRequest($this->groupId, $member, $silence);
+        $response = new AddGroupMemberInfoResponse();
         return $this->client->sendRequest($request, $response);
     }
 

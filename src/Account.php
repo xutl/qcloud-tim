@@ -14,10 +14,15 @@ use XuTL\QCloud\Tim\Requests\GetAccountProfileRequest;
 use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountStateRequest;
 use XuTL\QCloud\Tim\Requests\GetJoinedGroupListRequest;
+use XuTL\QCloud\Tim\Requests\GetNoSpeakingRequest;
 use XuTL\QCloud\Tim\Requests\SetAccountProfileRequest;
+use XuTL\QCloud\Tim\Requests\SetC2CNoSpeakingRequest;
+use XuTL\QCloud\Tim\Requests\SetGroupNoSpeakingRequest;
+use XuTL\QCloud\Tim\Requests\SetNoSpeakingRequest;
 use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\GetAccountProfileResponse;
 use XuTL\QCloud\Tim\Responses\GetJoinedGroupListResponse;
+use XuTL\QCloud\Tim\Responses\GetNoSpeakingBaseResponse;
 use XuTL\QCloud\Tim\Responses\SetAccountProfileResponse;
 
 /**
@@ -115,11 +120,43 @@ class Account
     }
 
     /**
-     * 设置全局禁言
+     * 设置全局圈子禁言
+     * @param int $noSpeakingTime
+     * @return BaseResponse
+     * @throws Exception\TIMException
      */
-    public function setNoSpeaking()
+    public function setGroupNoSpeaking($noSpeakingTime)
     {
+        $request = new SetGroupNoSpeakingRequest($this->identifier, $noSpeakingTime);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
 
+    /**
+     * 设置C2C禁言
+     * @param int $noSpeakingTime
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function setC2CNoSpeaking($noSpeakingTime)
+    {
+        $request = new SetC2CNoSpeakingRequest($this->identifier, $noSpeakingTime);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 设置全局禁言
+     * @param int $C2CNoSpeaking
+     * @param int $groupNoSpeaking
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function setNoSpeaking($C2CNoSpeaking, $groupNoSpeaking)
+    {
+        $request = new SetNoSpeakingRequest($this->identifier, $C2CNoSpeaking, $groupNoSpeaking);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**
@@ -127,6 +164,8 @@ class Account
      */
     public function getNoSpeaking()
     {
-
+        $request = new GetNoSpeakingRequest($this->identifier);
+        $response = new GetNoSpeakingBaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 }
