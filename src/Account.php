@@ -13,9 +13,11 @@ use XuTL\QCloud\Tim\Model\AccountProfile;
 use XuTL\QCloud\Tim\Requests\GetAccountProfileRequest;
 use XuTL\QCloud\Tim\Requests\AccountLoginKickRequest;
 use XuTL\QCloud\Tim\Requests\AccountStateRequest;
+use XuTL\QCloud\Tim\Requests\GetJoinedGroupListRequest;
 use XuTL\QCloud\Tim\Requests\SetAccountProfileRequest;
 use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\GetAccountProfileResponse;
+use XuTL\QCloud\Tim\Responses\GetJoinedGroupListResponse;
 use XuTL\QCloud\Tim\Responses\SetAccountProfileResponse;
 
 /**
@@ -93,6 +95,22 @@ class Account
         $request = new SetAccountProfileRequest($this->identifier);
         $request->setProfileItem($profile);
         $response = new SetAccountProfileResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 获取用户所加入的群组
+     * @param int $limit
+     * @param int $offset
+     * @param string $groupType
+     * @param array $responseFilter
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function getJoinedGroupList($limit, $offset, $groupType = null, $responseFilter = null)
+    {
+        $request = new GetJoinedGroupListRequest($this->identifier, $limit, $offset, $groupType, $responseFilter);
+        $response = new GetJoinedGroupListResponse();
         return $this->client->sendRequest($request, $response);
     }
 
