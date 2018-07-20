@@ -17,6 +17,7 @@ use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
 use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
+use XuTL\QCloud\Tim\Requests\SetUnreadMessageNumRequest;
 use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
 
 /**
@@ -95,6 +96,20 @@ class Group
     public function deleteMessage($senderAccount)
     {
         $request = new DeleteGroupMessageRequest($this->groupId, $senderAccount);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 设置成员未读消息计数
+     * @param string $memberAccount
+     * @param int $unreadMsgNum
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function setUnreadMessageNum($memberAccount, $unreadMsgNum)
+    {
+        $request = new SetUnreadMessageNumRequest($this->groupId, $memberAccount, $unreadMsgNum);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
