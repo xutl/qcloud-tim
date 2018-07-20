@@ -21,6 +21,8 @@ use XuTL\QCloud\Tim\Requests\GetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupMemberInfoRequest;
 use XuTL\QCloud\Tim\Requests\GetGroupShuttedUinRequest;
 use XuTL\QCloud\Tim\Requests\GetUserRoleRequest;
+use XuTL\QCloud\Tim\Requests\RecallGroupMessageRequest;
+use XuTL\QCloud\Tim\Requests\SendGroupMessageRequest;
 use XuTL\QCloud\Tim\Requests\SendGroupSystemNotificationRequest;
 use XuTL\QCloud\Tim\Requests\SetGroupInfoRequest;
 use XuTL\QCloud\Tim\Requests\SetUnreadMessageNumRequest;
@@ -30,6 +32,7 @@ use XuTL\QCloud\Tim\Responses\GetGroupInfoResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupMemberInfoResponse;
 use XuTL\QCloud\Tim\Responses\GetGroupShuttedUinResponse;
 use XuTL\QCloud\Tim\Responses\GetUserRoleResponse;
+use XuTL\QCloud\Tim\Responses\SendGroupMessageResponse;
 
 /**
  * 群组操作
@@ -57,6 +60,32 @@ class Group
     {
         $this->client = $client;
         $this->groupId = $groupId;
+    }
+
+    /**
+     * 发送消息
+     * @param SendGroupMessageRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function sendMessage(SendGroupMessageRequest $request)
+    {
+        $response = new SendGroupMessageResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 撤回消息
+     * @param string|array $msgSeq
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function recallMessage($msgSeq)
+    {
+        $msgSeqList = is_array($msgSeq) ? $msgSeq : [$msgSeq];
+        $request = new RecallGroupMessageRequest($this->groupId, $msgSeqList);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**

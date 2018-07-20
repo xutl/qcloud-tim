@@ -19,7 +19,7 @@ class SendMessageRequest extends BaseRequest
     public function __construct()
     {
         parent::__construct('POST', 'v4/openim/sendmsg');
-        $this->setParameter('MsgRandom', uniqid());
+        $this->setParameter('MsgRandom', time() . uniqid());
         $this->setParameter('MsgTimeStamp', time());
     }
 

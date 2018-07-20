@@ -14,10 +14,12 @@ use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
 use XuTL\QCloud\Tim\Requests\BatchSendMessageRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetMessageHistoryRequest;
+use XuTL\QCloud\Tim\Requests\ImportMessageRequest;
 use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Requests\SendMessageRequest;
 use XuTL\QCloud\Tim\Responses\BatchSendMessageResponse;
+use XuTL\QCloud\Tim\Responses\ImportMessageResponse;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
 use XuTL\QCloud\Tim\Responses\SendMessageResponse;
@@ -119,6 +121,18 @@ class Tim
     public function batchSendMessage(BatchSendMessageRequest $request)
     {
         $response = new BatchSendMessageResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 消息导入系统
+     * @param ImportMessageRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function importMessage(ImportMessageRequest $request)
+    {
+        $response = new ImportMessageResponse();
         return $this->client->sendRequest($request, $response);
     }
 
