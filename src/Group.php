@@ -12,6 +12,7 @@ use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Model\GroupAttributes;
 use XuTL\QCloud\Tim\Requests\ChangeOwnerRequest;
+use XuTL\QCloud\Tim\Requests\DeleteGroupMemberRequest;
 use XuTL\QCloud\Tim\Requests\DeleteGroupMessageRequest;
 use XuTL\QCloud\Tim\Requests\DestroyGroupRequest;
 use XuTL\QCloud\Tim\Requests\ForbidSendMessageRequest;
@@ -172,6 +173,22 @@ class Group
         $request = new SendGroupSystemNotificationRequest($this->groupId);
         $request->setContent($content);
         $request->setToMembersAccount($members);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+
+    /**
+     * 删除群组成员
+     * @param string|array $member
+     * @param null $reason
+     * @param int $silence
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function deleteMember($member, $reason = null, $silence = 0)
+    {
+        $request = new DeleteGroupMemberRequest($this->groupId, $member, $reason, $silence = 0);
         $response = new BaseResponse();
         return $this->client->sendRequest($request, $response);
     }
