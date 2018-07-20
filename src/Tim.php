@@ -12,6 +12,7 @@ use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
+use XuTL\QCloud\Tim\Requests\GetMessageHistoryRequest;
 use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
@@ -81,6 +82,30 @@ class Tim
     public function getAccount($identifier)
     {
         return new Account($this->client, $identifier);
+    }
+
+    /**
+     * 获取关系操作实例
+     * @param string $identifier
+     * @return Friend
+     */
+    public function getFriend($identifier)
+    {
+        return new Friend($this->client, $identifier);
+    }
+
+    /**
+     * 获取聊天消息历史
+     * @param string $chatType C2C/Group
+     * @param string $time
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function getMessageHistory($chatType, $time)
+    {
+        $request = new GetMessageHistoryRequest($chatType, $time);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**
@@ -219,5 +244,14 @@ class Tim
     {
         $response = new ListGroupResponse();
         return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 获取脏字操作实例
+     * @return DirtyWord
+     */
+    public function getDirtyWord()
+    {
+        return new DirtyWord($this->client);
     }
 }

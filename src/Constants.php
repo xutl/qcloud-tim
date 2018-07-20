@@ -42,10 +42,14 @@ class Constants
 
     //校验好友模式
     const FRIEND_CHECK_TYPE__SINGLE = 'CheckResult_Type_Singal';
-    const FRIEND_CHECK_TYPE__BOTH  = 'CheckResult_Type_Both';
+    const FRIEND_CHECK_TYPE__BOTH = 'CheckResult_Type_Both';
 
     //黑名单校验
     const BLACK_CHECK_RESULT_TYPE_SINGAL = 'BlackCheckResult_Type_Singal';
     const BLACK_CHECK_RESULT_TYPE_BOTH = 'BlackCheckResult_Type_Both';
+
+    //聊天类型
+    const CHAT_TYPE_C2C = 'C2C';
+    const CHAT_TYPE_GROUP = 'Group';
 
 }
