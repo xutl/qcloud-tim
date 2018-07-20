@@ -161,6 +161,8 @@ class Account
 
     /**
      * 获取全局禁言
+     * @return BaseResponse
+     * @throws Exception\TIMException
      */
     public function getNoSpeaking()
     {

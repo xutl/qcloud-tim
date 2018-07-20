@@ -11,12 +11,16 @@ use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
+use XuTL\QCloud\Tim\Requests\BatchSendMessageRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetMessageHistoryRequest;
 use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
+use XuTL\QCloud\Tim\Requests\SendMessageRequest;
+use XuTL\QCloud\Tim\Responses\BatchSendMessageResponse;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
+use XuTL\QCloud\Tim\Responses\SendMessageResponse;
 
 /**
  * Class Tim
@@ -92,6 +96,30 @@ class Tim
     public function getFriend($identifier)
     {
         return new Friend($this->client, $identifier);
+    }
+
+    /**
+     * 发送单聊消息
+     * @param SendMessageRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function sendMessage(SendMessageRequest $request)
+    {
+        $response = new SendMessageResponse();
+        return $this->client->sendRequest($request, $response);
+    }
+
+    /**
+     * 发送单聊消息
+     * @param BatchSendMessageRequest $request
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function batchSendMessage(BatchSendMessageRequest $request)
+    {
+        $response = new BatchSendMessageResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**
