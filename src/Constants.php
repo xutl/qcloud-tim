@@ -39,4 +39,8 @@ class Constants
     //删除好友模式
     const FRIEND_DELETE_TYPE_SINGLE = 'Delete_Type_Single';//单向删除
     const FRIEND_DELETE_TYPE_BOTH = 'Delete_Type_Both';//双向删除
+
+    //校验好友模式
+    const FRIEND_CHECK_TYPE__SINGLE = 'CheckResult_Type_Singal';
+    const FRIEND_CHECK_TYPE__BOTH  = 'CheckResult_Type_Both';
 }

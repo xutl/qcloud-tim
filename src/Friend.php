@@ -9,8 +9,11 @@ namespace XuTL\QCloud\Tim;
 
 use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
+use XuTL\QCloud\Tim\Requests\AddFriendGroupRequest;
 use XuTL\QCloud\Tim\Requests\AddFriendRequest;
+use XuTL\QCloud\Tim\Requests\CheckFriendRequest;
 use XuTL\QCloud\Tim\Requests\DeleteAllFriendRequest;
+use XuTL\QCloud\Tim\Requests\DeleteFriendGroupRequest;
 use XuTL\QCloud\Tim\Requests\DeleteFriendRequest;
 use XuTL\QCloud\Tim\Requests\ImportFriendRequest;
 use XuTL\QCloud\Tim\Requests\UpdateFriendRequest;
@@ -110,10 +113,18 @@ class Friend
         return $this->client->sendRequest($request, $response);
     }
 
-
-    public function check()
+    /**
+     * 批量校验好友关系
+     * @param array|string $account
+     * @param string $checkType
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function check($account, $checkType)
     {
-
+        $request = new CheckFriendRequest($this->identifier, $account, $checkType);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     public function getAll()
@@ -126,27 +137,46 @@ class Friend
 
     }
 
-    public function blackListAdd()
+    public function blackListAdd($account)
     {
     }
 
-    public function blackListDelete()
+    public function blackListDelete($account)
     {
     }
 
-    public function blackListGet()
+    public function blackListGet($index, $limit, $lastSequence = 0)
     {
     }
 
-    public function blackListCheck()
+    public function blackListCheck($account, $checkType)
     {
     }
 
-    public function groupAdd()
+    /**
+     * 添加好友分组
+     * @param string $name
+     * @param array|string $account
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function groupAdd($name, $account = null)
     {
+        $request = new AddFriendGroupRequest($this->identifier, $name, $account);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
-    public function groupDelete()
+    /**
+     * 删除分组
+     * @param string|array $name
+     * @return BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function groupDelete($name)
     {
+        $request = new DeleteFriendGroupRequest($this->identifier, $name);
+        $response = new BaseResponse();
+        return $this->client->sendRequest($request, $response);
     }
 }
