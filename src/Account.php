@@ -67,7 +67,7 @@ class Account
 
     /**
      * 查询账户在线状态
-     * @return BaseResponse
+     * @return BaseResponse|AccountStateResponse
      * @throws Exception\TIMException
      */
     public function state()
@@ -109,7 +109,7 @@ class Account
      * @param int $offset
      * @param string $groupType
      * @param array $responseFilter
-     * @return BaseResponse
+     * @return BaseResponse|GetJoinedGroupListResponse
      * @throws Exception\TIMException
      */
     public function getJoinedGroupList($limit, $offset, $groupType = null, $responseFilter = null)
@@ -161,7 +161,7 @@ class Account
 
     /**
      * 获取全局禁言
-     * @return BaseResponse
+     * @return BaseResponse|GetNoSpeakingBaseResponse
      * @throws Exception\TIMException
      */
     public function getNoSpeaking()

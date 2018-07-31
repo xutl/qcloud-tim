@@ -90,7 +90,7 @@ class Group
 
     /**
      * 获取群组资料
-     * @return BaseResponse
+     * @return BaseResponse|GetGroupInfoResponse
      * @throws Exception\TIMException
      */
     public function getInfo()
@@ -107,7 +107,7 @@ class Group
      * @param array $memberRoleFilter
      * @param array $memberInfoFilter
      * @param array $appDefinedDataFilter
-     * @return BaseResponse
+     * @return BaseResponse|AddGroupMemberInfoResponse
      * @throws Exception\TIMException
      */
     public function getMemberInfo($limit = null, $offset = 0, $memberRoleFilter = null, $memberInfoFilter = null, $appDefinedDataFilter = null)
@@ -121,7 +121,7 @@ class Group
      * 增加群组成员
      * @param array|string $member
      * @param int $silence
-     * @return BaseResponse
+     * @return BaseResponse|AddGroupMemberInfoResponse
      * @throws Exception\TIMException
      */
     public function addMember($member, $silence = 0)
@@ -134,7 +134,7 @@ class Group
     /**
      * 设置群组资料
      * @param GroupAttributes $attributes
-     * @return BaseResponse
+     * @return BaseResponse|GetGroupInfoResponse
      * @throws Exception\TIMException
      */
     public function setInfo(GroupAttributes $attributes)
@@ -187,7 +187,7 @@ class Group
 
     /**
      * 获取群组被禁言用户列表
-     * @return BaseResponse
+     * @return BaseResponse|GetGroupShuttedUinResponse
      * @throws Exception\TIMException
      */
     public function getGroupShuttedUin()
@@ -201,7 +201,7 @@ class Group
      * 批量禁言和取消禁言
      * @param array|string $membersAccount 需要禁言的用户帐号，最多支持 500 个帐号。
      * @param int $shutUpTime 需禁言时间，单位为秒，为 0 时表示取消禁言。
-     * @return BaseResponse
+     * @return BaseResponse|ForbidSendMessageResponse
      * @throws Exception\TIMException
      */
     public function forbidSendMessage($membersAccount, $shutUpTime)
@@ -214,7 +214,7 @@ class Group
     /**
      * 查询用户在群组中的身份
      * @param string|array $userAccount
-     * @return BaseResponse
+     * @return BaseResponse|GetUserRoleResponse
      * @throws Exception\TIMException
      */
     public function getUserRole($userAccount)

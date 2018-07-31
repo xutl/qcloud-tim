@@ -83,7 +83,7 @@ class Friend
     /**
      * 更新好友
      * @param UpdateFriendRequest $request
-     * @return BaseResponse
+     * @return BaseResponse|UpdateFriendResponse
      * @throws Exception\TIMException
      */
     public function update(UpdateFriendRequest $request)
@@ -97,7 +97,7 @@ class Friend
      * 删除好友
      * @param string|array $account
      * @param string $deleteType 默认双向删除
-     * @return BaseResponse
+     * @return BaseResponse|DeleteFriendResponse
      * @throws Exception\TIMException
      */
     public function delete($account, $deleteType = Constants::FRIEND_DELETE_TYPE_BOTH)
