@@ -109,7 +109,7 @@ class HttpClient
      * 发送同步请求
      * @param BaseRequest $request
      * @param BaseResponse $response
-     * @return BaseResponse
+     * @return object|BaseResponse
      * @throws TIMException
      */
     public function sendRequest(BaseRequest $request, BaseResponse &$response)

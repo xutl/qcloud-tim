@@ -11,6 +11,7 @@ use XuTL\QCloud\Tim\Http\BaseResponse;
 use XuTL\QCloud\Tim\Http\HttpClient;
 use XuTL\QCloud\Tim\Requests\AccountImportRequest;
 use XuTL\QCloud\Tim\Requests\AccountRegisterRequest;
+use XuTL\QCloud\Tim\Requests\BatchAccountStateRequest;
 use XuTL\QCloud\Tim\Requests\BatchSendMessageRequest;
 use XuTL\QCloud\Tim\Requests\CreateGroupRequest;
 use XuTL\QCloud\Tim\Requests\GetMessageHistoryRequest;
@@ -18,6 +19,7 @@ use XuTL\QCloud\Tim\Requests\ImportMessageRequest;
 use XuTL\QCloud\Tim\Requests\ListGroupRequest;
 use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Requests\SendMessageRequest;
+use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\BatchSendMessageResponse;
 use XuTL\QCloud\Tim\Responses\ImportMessageResponse;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
@@ -78,6 +80,18 @@ class Tim
     public function getLoginSignature($identifier, $expire = 86400)
     {
         return $this->signature->make($identifier, $expire);
+    }
+
+    /**
+     * @param array $identifiers
+     * @return AccountStateResponse|BaseResponse
+     * @throws Exception\TIMException
+     */
+    public function batchQueryState($identifiers)
+    {
+        $request = new BatchAccountStateRequest($identifiers);
+        $response = new AccountStateResponse();
+        return $this->client->sendRequest($request, $response);
     }
 
     /**
