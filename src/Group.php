@@ -59,7 +59,7 @@ class Group
     public function __construct(HttpClient $client, $groupId)
     {
         $this->client = $client;
-        $this->groupId = $groupId;
+        $this->groupId = (string)$groupId;
     }
 
     /**
