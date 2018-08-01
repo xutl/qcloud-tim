@@ -79,7 +79,7 @@ class Tim
      */
     public function getLoginSignature($identifier, $expire = 86400)
     {
-        return $this->signature->make($identifier, $expire);
+        return $this->signature->make((string)$identifier, $expire);
     }
 
     /**

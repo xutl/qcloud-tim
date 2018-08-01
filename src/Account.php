@@ -50,7 +50,7 @@ class Account
     public function __construct(HttpClient $client, $identifier)
     {
         $this->client = $client;
-        $this->identifier = $identifier;
+        $this->identifier = (string)$identifier;
     }
 
     /**
