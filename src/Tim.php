@@ -21,6 +21,7 @@ use XuTL\QCloud\Tim\Requests\MultiAccountImportRequest;
 use XuTL\QCloud\Tim\Requests\SendMessageRequest;
 use XuTL\QCloud\Tim\Responses\AccountStateResponse;
 use XuTL\QCloud\Tim\Responses\BatchSendMessageResponse;
+use XuTL\QCloud\Tim\Responses\CreateGroupResponse;
 use XuTL\QCloud\Tim\Responses\ImportMessageResponse;
 use XuTL\QCloud\Tim\Responses\ListGroupResponse;
 use XuTL\QCloud\Tim\Responses\MultiAccountImportResponse;
@@ -273,7 +274,7 @@ class Tim
      */
     public function createGroup(CreateGroupRequest $request)
     {
-        $response = new BaseResponse();
+        $response = new CreateGroupResponse();
         return $this->client->sendRequest($request, $response);
     }
 
@@ -286,7 +287,7 @@ class Tim
      */
     public function createGroupAsync(CreateGroupRequest $request, AsyncCallback $callback = null)
     {
-        $response = new BaseResponse();
+        $response = new CreateGroupResponse();
         return $this->client->sendRequestAsync($request, $response, $callback);
     }
 
