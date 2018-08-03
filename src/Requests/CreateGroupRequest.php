@@ -7,6 +7,8 @@
 
 namespace XuTL\QCloud\Tim\Requests;
 
+use http\Exception\InvalidArgumentException;
+use XuTL\QCloud\Tim\Constants;
 use XuTL\QCloud\Tim\Http\BaseRequest;
 
 /**
@@ -67,6 +69,9 @@ class CreateGroupRequest extends BaseRequest
      */
     public function setType($type)
     {
+        if (!in_array($type, [Constants::GROUP_TYPE_AV_CHAT_ROOM, Constants::GROUP_TYPE_B_CHAT_ROOM, Constants::GROUP_TYPE_CHAT_ROOM, Constants::GROUP_TYPE_PRIVATE, Constants::GROUP_TYPE_PUBLIC])) {
+            throw new InvalidArgumentException('Group type is incorrect.');
+        }
         $this->setParameter('Type', $type);
         return $this;
     }
@@ -122,6 +127,9 @@ class CreateGroupRequest extends BaseRequest
      */
     public function setApplyJoinOption($applyJoinOption)
     {
+        if (!in_array($applyJoinOption, [Constants::GROUP_APPLY_JOIN_OPTION_DISABLE_APPLY, Constants::GROUP_APPLY_JOIN_OPTION_FREE_ACCESS, Constants::GROUP_APPLY_JOIN_OPTION_NEED_PERMISSION])) {
+            throw new InvalidArgumentException('Group apply join option is incorrect.');
+        }
         $this->setParameter('ApplyJoinOption', $applyJoinOption);
         return $this;
     }
