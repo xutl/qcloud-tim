@@ -41,10 +41,12 @@ class CreateGroupRequest extends BaseRequest
     /**
      * 设置群主
      * @param string $ownerAccount
+     * @return $this
      */
     public function setOwnerAccount($ownerAccount)
     {
-        $this->setParameter('Owner_Account', $ownerAccount);
+        $this->setParameter('Owner_Account', (string)$ownerAccount);
+        return $this;
     }
 
     /**
