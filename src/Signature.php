@@ -94,6 +94,7 @@ class Signature
             if ($this->publicKey === false) {
                 throw new InvalidConfigException(openssl_error_string());
             }
+            $this->initOpenSSL = true;
         }
     }
 
@@ -102,7 +103,7 @@ class Signature
      * @param string $identifier 用户名
      * @param int $expireTime 签名有效期默认3600秒
      * @return string 生成的UserSig 失败时为false
-     * @throws SignatureException
+     * @throws InvalidConfigException
      */
     public function make($identifier, $expireTime = 3600)
     {
