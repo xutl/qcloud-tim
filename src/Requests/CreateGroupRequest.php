@@ -7,8 +7,8 @@
 
 namespace XuTL\QCloud\Tim\Requests;
 
-use http\Exception\InvalidArgumentException;
 use XuTL\QCloud\Tim\Constants;
+use XuTL\QCloud\Tim\Exception\InvalidArgumentException;
 use XuTL\QCloud\Tim\Http\BaseRequest;
 
 /**
@@ -66,6 +66,7 @@ class CreateGroupRequest extends BaseRequest
      * 群组类别
      * @param string $type
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setType($type)
     {
@@ -124,6 +125,7 @@ class CreateGroupRequest extends BaseRequest
      * 申请加群处理方式（选填）
      * @param string $applyJoinOption
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setApplyJoinOption($applyJoinOption)
     {
