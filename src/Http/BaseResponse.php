@@ -45,6 +45,15 @@ class BaseResponse
     protected $_content = [];
 
     /**
+     * 请求是否是成功的
+     * @return bool
+     */
+    public function isSucceed()
+    {
+        return $this->succeed;
+    }
+
+    /**
      * 获取操作状态
      * @return string
      */
